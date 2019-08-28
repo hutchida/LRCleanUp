@@ -25,9 +25,8 @@ logfilepath = logdir + 'lr-' + date + '-' + hms +'.txt'
 file = 'LexisPSL_Recommends_Word_List.xlsx'
 filepath = xlsdir + file
 
-#aicerdir = "\\\\atlas\\knowhow\\PSL_Content_Management\\AICER_Reports\\AICER\\"
-
-aicerdir = "C:\\Users\\Hutchida\\Documents\\PSL\\AICER\\"
+aicerdir = "\\\\atlas\\knowhow\\PSL_Content_Management\\AICER_Reports\\AICER\\"
+#aicerdir = "C:\\Users\\Hutchida\\Documents\\PSL\\AICER\\"
 
 def MostRecentAicer():
     print("Finding most recent AICER report...this can take up to 20 minutes so be patient...")
@@ -112,7 +111,7 @@ for index, row in df.iterrows():
     Data = ET.SubElement(Cell, 'Data')
     Data.text = str(SearchTerm)
     
-    Title1 = df.iloc[i,2]
+    Title1 = str(df.iloc[i,2])
     DPSI1 = df.iloc[i,3]
     DocId1 = df.iloc[i,4]
     Title2 = df.iloc[i,5]
@@ -134,6 +133,7 @@ for index, row in df.iterrows():
         else: #DocID found on Aicer
             #Compare doc titles with the aicer
             dfaicertitle = dfaicer.loc[dfaicer['id'] == int(DocId1), 'Label'].iloc[0]
+            #print(Title1)
             Title1.replace('--', '—')
             if Title1 != dfaicertitle:
                 replacedoctitletext += '\r\n\r\n' + str(rt) + ' ...from 1st recommended doc... ' + 'PA: ' + PA + ', Search term: ' + str(SearchTerm) + ', DocID: ' + str(DocId1) + '\r\nOriginal: ' + str(Title1) + '\r\r\nReplacement: ' + str(dfaicertitle)
